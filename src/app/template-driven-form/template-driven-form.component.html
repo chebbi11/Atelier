@@ -1,0 +1,57 @@
+<form #F="ngForm" (ngSubmit)="AddInfo(F)">
+<h1 class="text-center">Atelier n°3 : Le Template Driven Form</h1>
+<h2>Information générales</h2>
+
+  <div class="form-group" >
+    <label>Nom</label>
+    <input name="nom" type="text" class="form-control"
+    [(ngModel)]="i.nom" #nom="ngModel" required
+           [class.is-invalid]="nom?.invalid && nom?.touched">
+    <span style="color: crimson" *ngIf=" nom.touched && nom?.errors?.['required'] ">Title is required</span>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input name="email" type="text" class="form-control"
+    [(ngModel)]="i.email" #email="ngModel" required pattern="[a-zA-Z0-9]+\.+[a-zA-Z0-9]+@+[a-zA-Z]{3}"
+    [class.is-invalid]="email?.invalid && email?.touched">
+    <span style="color: crimson" *ngIf="email?.touched && email?.errors?.['required'] ">Email is required</span>
+    <span style="color: crimson" *ngIf="email?.touched && email?.errors?.['required'] "> Email type is required</span>
+  </div>
+  <div class="form-group" ngModelGroup="payment">
+
+    <h2>Information de payement</h2>
+
+    <div class="form-group">
+      <label>Type de carte</label>
+      <input name="tcarte" type="text" class="form-control"
+             [(ngModel)]="i.TypeCarte" #tcarte="ngModel" required
+             [class.is-invalid]="tcarte?.invalid && tcarte?.touched">
+      <span style="color: crimson" *ngIf="email?.touched && email?.errors?.['required'] ">Type de Carte is required</span>
+    </div>
+
+    <div class="form-group" >
+      <label>Numéro de carte</label>
+      <input name="ncarte" type="text" class="form-control"
+             [(ngModel)]="i.NumeroCarte" #ncarte="ngModel" required pattern="[0-9]{16}"
+             [class.is-invalid]="ncarte?.invalid && ncarte?.touched">
+      <span style="color: crimson" *ngIf="email?.touched && email?.errors?.['required'] ">Numero de Carte is required</span>
+    </div>
+
+    <div class="form-group">
+      <label>Date d'expiration</label>
+      <input name="exp" type="text" class="form-control"
+             [(ngModel)]="i.DateExpiration" #dexp="ngModel" required
+             [class.is-invalid]="dexp?.invalid && dexp?.touched">
+      <span style="color: crimson" *ngIf="email?.touched && email?.errors?.['required'] ">Date d'expiration de Carte is required</span>
+    </div>
+
+
+    <div class="form-group">
+      <label>Code</label>
+      <input name="code" type="text" class="form-control" *ngIf="F.form.get('payment')?.valid">
+    </div>
+  </div>
+  <button class="btn btn-success mt-3"  type="submit" [disabled]="F.invalid">Ajouter</button>
+
+</form>
